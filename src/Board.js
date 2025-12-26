@@ -63,6 +63,14 @@ export default function Board() {
       console.log("Player " + currentPlayer + " has already won");
       return;
     }
+    const currentPosMove = boardState[jPos][iPos];
+    if (currentPosMove) {
+      console.log(
+        `position [${jPos}][${iPos}] already contains an ${currentPosMove} move`
+      );
+      return;
+    }
+
     console.log("oldState:", boardState);
     console.log("i", iPos, "j", jPos);
     const newState = boardState.map((row, j) => {
@@ -92,11 +100,11 @@ export default function Board() {
     <>
       {boardState.map((row, j) => {
         return (
-          <div className="board-row">
+          <div key={`row-${j}`} className="board-row">
             {row.map((sq, i) => {
               return (
                 <Square
-                  key={i * 10 + j * 100}
+                  key={`square-${i}-${j}`}
                   i={i}
                   j={j}
                   setBoardAt={setBoardAt}
